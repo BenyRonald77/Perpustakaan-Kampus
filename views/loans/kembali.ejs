@@ -1,0 +1,35 @@
+<%- include('../partials/header') %>
+
+<div class="page-heading">
+  <div>
+    <h1>Pengembalian</h1>
+    <p>Pindai barcode buku, lalu barcode kartu anggota yang mengembalikan. Denda keterlambatan (jika ada) dihitung otomatis, dan eksemplar yang bebas langsung dialokasikan ke antrean pertama bila ada yang menunggu.</p>
+  </div>
+</div>
+
+<%- include('../partials/notice') %>
+
+<div class="kartu">
+  <form method="POST" action="/pengembalian" data-loading-label="Memproses pengembalian...">
+    <div class="form-row">
+      <div class="form-field">
+        <label for="bookBarcode">1. Barcode Buku</label>
+        <input class="input-barcode" type="text" id="bookBarcode" name="bookBarcode" autocomplete="off" required data-autofocus data-scan-next="#memberBarcode">
+        <span class="form-hint">Pindai punggung buku, atau ketik lalu tekan Enter.</span>
+      </div>
+      <div class="form-field">
+        <label for="memberBarcode">2. Barcode Kartu Anggota</label>
+        <input class="input-barcode" type="text" id="memberBarcode" name="memberBarcode" autocomplete="off" required data-scan-next="">
+        <span class="form-hint">Pindai kartu anggota (NIM), lalu tekan Enter untuk memproses.</span>
+      </div>
+    </div>
+    <button class="btn btn-utama" type="submit">Proses Pengembalian</button>
+  </form>
+</div>
+
+<div class="kartu">
+  <h2>Cara kerja</h2>
+  <p class="teks-lembut teks-kecil">Denda dihitung dari selisih hari antara tanggal jatuh tempo dan tanggal pengembalian dikalikan tarif denda per hari. Denda pada peminjaman yang belum dikembalikan juga diperbarui otomatis setiap hari lewat job terjadwal, tanpa perlu menunggu sampai buku dikembalikan.</p>
+</div>
+
+<%- include('../partials/footer') %>

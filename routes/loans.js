@@ -40,6 +40,29 @@ router.post('/peminjaman', (req, res) => {
   res.redirect(`/peminjaman?notice=${encodeURIComponent(notice.text)}&kind=${notice.kind}`);
 });
 
+router.get('/pengembalian', (req, res) => {
+  const notice = req.query.notice ? { kind: req.query.kind || 'info', text: req.query.notice } : null;
+  res.render('loans/kembali', {
+    judulHalaman: 'Pengembalian',
+    active: 'pengembalian',
+    notice,
+  });
+});
+
+router.post('/pengembalian', (req, res) => {
+  const bookBarcode = (req.body.bookBarcode || '').trim();
+  const memberBarcode = (req.body.memberBarcode || '').trim();
+
+  if (!bookBarcode || !memberBarcode) {
+    const text = 'Barcode buku dan barcode anggota wajib dipindai/diisi keduanya.';
+    return res.redirect(`/pengembalian?notice=${encodeURIComponent(text)}&kind=galat`);
+  }
+
+  const result = lib.returnBook(bookBarcode, memberBarcode);
+  const kind = result.ok ? 'sukses' : 'galat';
+  res.redirect(`/pengembalian?notice=${encodeURIComponent(result.message)}&kind=${kind}`);
+});
+
 router.get('/antrean', (req, res) => {
   try {
     const books = store.readAll('books');
