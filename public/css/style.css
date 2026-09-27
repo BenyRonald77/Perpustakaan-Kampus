@@ -12,13 +12,14 @@
   --kertas: #f6f1e7;
   --permukaan: #ffffff;
   --garis: #dcd3c0;
-  --aksen: #b5651d;
+  --aksen: #8f4f16;
+  --aksen-dekor: #b5651d;
   --aksen-lembut: #f1e0cf;
   --status-bahaya: #b3261e;
   --status-bahaya-lembut: #f6e3e1;
   --status-baik: #3f6c4c;
   --status-baik-lembut: #e4ede6;
-  --status-tunggu: #8a6d1f;
+  --status-tunggu: #7d631c;
   --status-tunggu-lembut: #f3ecd6;
 
   --font-judul: 'Source Serif 4', Georgia, 'Times New Roman', serif;
@@ -197,7 +198,7 @@ textarea:focus-visible,
 .kartu {
   background: var(--permukaan);
   border: 1px solid var(--garis);
-  border-top: 3px solid var(--aksen);
+  border-top: 3px solid var(--aksen-dekor);
   border-radius: var(--radius-kartu);
   padding: var(--spasi-3);
   margin-bottom: var(--spasi-3);
@@ -304,7 +305,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .btn-utama:hover, .btn-utama:focus-visible {
-  background: #9c5518;
+  background: #723f11;
 }
 
 .btn-sekunder {

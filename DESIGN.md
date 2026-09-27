@@ -22,7 +22,8 @@ Ini bukan landing page produk. Tidak ada hero, tidak ada CTA penjualan, tidak ad
 | Inti 1 - Tinta (teks, nav, header) | `#1F2A37` | Biru-kehitaman gelap ala tinta cap perpustakaan lama, bukan hitam pekat, memberi karakter tanpa terasi keras. Kontras tinggi di atas kertas. |
 | Inti 2 - Kertas (latar) | `#F6F1E7` | Warna kertas katalog krem hangat, bukan putih/abu netral AI-default, mengurangi silau untuk pekerjaan baca-lama (long-form). |
 | Netral - Garis & permukaan kartu | `#FFFFFF` / `#DCD3C0` | Putih untuk permukaan kartu di atas kertas krem, garis border coklat-krem pudar untuk pembatas tanpa bayangan berlebihan. Dihitung sebagai netral, bukan bagian dari 2-3 warna inti (aturan R-29). |
-| Aksen - Cap Ochre | `#B5651D` | Warna oranye-coklat seperti tinta cap tanggal ("date-due stamp") pada kartu peminjaman perpustakaan lama. Dipakai hanya untuk aksi utama, status jatuh tempo mendekati, dan penanda antrean, bukan disebar ke semua elemen. |
+| Aksen - Cap Ochre (teks/tombol) | `#8F4F16` | Warna oranye-coklat seperti tinta cap tanggal ("date-due stamp") pada kartu peminjaman perpustakaan lama. Dipakai untuk aksi utama, tautan, dan penanda antrean. Dibuat lebih gelap dari draf awal (`#B5651D`) supaya teks dan tombol memenuhi kontras AA (diverifikasi 4.5:1+ terhadap kertas dan putih, lihat VERIFICATION.md). |
+| Aksen dekoratif - Cap Ochre (non-teks) | `#B5651D` | Nada ochre yang lebih terang, dipakai murni sebagai garis atas kartu (motif katalog) di mana kontras teks tidak berlaku, supaya masih terasa hangat tanpa harus digelapkan seperti varian teks di atas. |
 
 Warna status (bukan bagian palet inti, dipakai fungsional saja): merah `#B3261E` untuk overdue/denda, hijau tua `#3F6C4C` untuk tersedia/lunas. Keduanya sudah diuji kontras AA di atas kertas krem dan putih.
 
