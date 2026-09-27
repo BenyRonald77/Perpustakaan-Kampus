@@ -4,6 +4,7 @@ const path = require('path');
 const dashboardRoutes = require('./routes/dashboard');
 const bookRoutes = require('./routes/books');
 const memberRoutes = require('./routes/members');
+const loanRoutes = require('./routes/loans');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', dashboardRoutes);
 app.use('/buku', bookRoutes);
 app.use('/anggota', memberRoutes);
+app.use('/', loanRoutes);
 
 app.use((req, res) => {
   res.status(404).send('Halaman tidak ditemukan.');

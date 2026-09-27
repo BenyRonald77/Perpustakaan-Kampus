@@ -1,44 +1,44 @@
 [
   {
-    "id": "5edc48db-d6e7-4adf-bd38-264d36d59b15",
+    "id": "4e50d117-c23a-4174-ac85-3b7b12c36ada",
     "judul": "Pemrograman Dasar dengan Python",
     "barcode": "BK-00001",
     "totalEksemplar": 3,
-    "createdAt": "2026-09-27T04:53:02.288Z"
+    "createdAt": "2026-09-27T04:55:11.129Z"
   },
   {
-    "id": "946a132e-1171-4a1f-bf51-8ee9704d8840",
+    "id": "5df2f30b-5831-4e4a-b77f-f39097287bd2",
     "judul": "Struktur Data dan Algoritma",
     "barcode": "BK-00002",
     "totalEksemplar": 2,
-    "createdAt": "2026-09-27T04:53:02.288Z"
+    "createdAt": "2026-09-27T04:55:11.129Z"
   },
   {
-    "id": "0cce05fa-5a85-42b6-ada5-f6d69cc5fc60",
+    "id": "92739ba2-f630-4e19-9231-a3727ea0f1b0",
     "judul": "Pengantar Basis Data Relasional",
     "barcode": "BK-00003",
     "totalEksemplar": 1,
-    "createdAt": "2026-09-27T04:53:02.288Z"
+    "createdAt": "2026-09-27T04:55:11.129Z"
   },
   {
-    "id": "48f5ae6e-5c19-4a70-8207-887764d2e063",
+    "id": "9633f45f-8d42-4733-9e47-5a8a76dd3a38",
     "judul": "Metodologi Penelitian Kuantitatif",
     "barcode": "BK-00004",
     "totalEksemplar": 2,
-    "createdAt": "2026-09-27T04:53:02.288Z"
+    "createdAt": "2026-09-27T04:55:11.129Z"
   },
   {
-    "id": "3a3e68b5-433e-4965-87a6-9c41767e5d06",
+    "id": "ba5f1aa8-6417-4bab-8cd3-a90fca98a145",
     "judul": "Ekonomi Mikro Pengantar",
     "barcode": "BK-00005",
     "totalEksemplar": 1,
-    "createdAt": "2026-09-27T04:53:02.288Z"
+    "createdAt": "2026-09-27T04:55:11.129Z"
   },
   {
-    "id": "d7857036-318c-48d4-8976-cd2509895226",
+    "id": "6bc6e5ce-6d90-4198-9891-3388915b0c18",
     "judul": "Sejarah Pemikiran Modern",
     "barcode": "BK-00006",
     "totalEksemplar": 2,
-    "createdAt": "2026-09-27T04:53:02.288Z"
+    "createdAt": "2026-09-27T04:55:11.129Z"
   }
 ]

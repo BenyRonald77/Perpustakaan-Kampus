@@ -1,0 +1,65 @@
+<%- include('../partials/header') %>
+
+<div class="page-heading">
+  <div>
+    <h1>Antrean Reservasi</h1>
+    <p>Antrean FIFO per buku. Saat eksemplar dikembalikan, posisi pertama otomatis berubah menjadi "siap diambil" dengan batas waktu pengambilan.</p>
+  </div>
+</div>
+
+<% if (loadError) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'galat',
+    judul: 'Data antrean gagal dimuat',
+    pesan: 'Terjadi masalah saat membaca data antrean: ' + loadError + '. Muat ulang halaman.',
+    aksiHref: '/antrean',
+    aksiLabel: 'Coba muat ulang',
+  } }) %>
+<% } else if (kelompok.length === 0) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'kosong',
+    judul: 'Tidak ada antrean aktif saat ini',
+    pesan: 'Antrean akan muncul di sini secara otomatis ketika ada anggota meminjam buku yang eksemplarnya sedang habis.',
+    aksiHref: '/peminjaman',
+    aksiLabel: 'Buka Halaman Peminjaman',
+  } }) %>
+<% } else { %>
+  <% kelompok.forEach((k) => { %>
+    <div class="kartu">
+      <h2><%= k.book.judul %> <span class="kode-badge"><%= k.book.barcode %></span></h2>
+      <div class="tabel-bungkus">
+        <table>
+          <thead>
+            <tr>
+              <th>Posisi</th>
+              <th>Anggota</th>
+              <th>Status</th>
+              <th>Batas Ambil</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% k.antrean.forEach((r, idx) => { %>
+              <tr>
+                <td><%= idx + 1 %></td>
+                <td><%= r.anggota ? r.anggota.nama : 'Anggota tidak ditemukan' %></td>
+                <td>
+                  <% if (r.status === 'siap_diambil') { %>
+                    <span class="status status-siap">Siap diambil</span>
+                  <% } else { %>
+                    <span class="status status-tunggu">Menunggu</span>
+                  <% } %>
+                </td>
+                <td><%= r.batasAmbil || '-' %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% }) %>
+  <% if (totalHangus > 0) { %>
+    <p class="teks-lembut teks-kecil"><%= totalHangus %> alokasi antrean sebelumnya sudah hangus karena lewat batas ambil, dan otomatis diteruskan ke antrean berikutnya.</p>
+  <% } %>
+<% } %>
+
+<%- include('../partials/footer') %>
