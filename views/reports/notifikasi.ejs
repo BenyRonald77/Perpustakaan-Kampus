@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+
+<div class="page-heading">
+  <div>
+    <h1>Notifikasi</h1>
+    <p>Pengingat H-2 sebelum jatuh tempo dan pemberitahuan saat peminjaman mulai overdue. Ini adalah notifikasi in-app saja: sistem ini tidak terhubung ke layanan email atau SMS, jadi tidak ada pesan yang benar-benar terkirim ke perangkat anggota.</p>
+  </div>
+</div>
+
+<div class="kartu">
+  <h2>Jalankan pengecekan manual</h2>
+  <p class="teks-lembut teks-kecil">Job harian biasanya berjalan otomatis sekali sehari. Gunakan tombol ini untuk memicunya sekarang juga, misalnya untuk menguji perubahan tanggal jatuh tempo tanpa menunggu jadwal.</p>
+  <button type="button" class="btn btn-sekunder" data-cron-trigger>Jalankan Pengecekan Sekarang</button>
+  <div data-cron-result></div>
+</div>
+
+<% if (loadError) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'galat',
+    judul: 'Notifikasi gagal dimuat',
+    pesan: 'Terjadi masalah saat membaca data notifikasi: ' + loadError + '. Muat ulang halaman.',
+    aksiHref: '/notifikasi',
+    aksiLabel: 'Coba muat ulang',
+  } }) %>
+<% } else if (daftar.length === 0) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'kosong',
+    judul: 'Belum ada notifikasi',
+    pesan: 'Notifikasi pengingat H-2 dan overdue akan muncul di sini setelah job harian berjalan (otomatis tiap hari, atau dipicu manual lewat tombol di atas).',
+  } }) %>
+<% } else { %>
+  <div class="kartu">
+    <div class="tabel-bungkus">
+      <table>
+        <thead>
+          <tr>
+            <th>Tipe</th>
+            <th>Buku</th>
+            <th>Anggota</th>
+            <th>Pesan</th>
+            <th>Dibuat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% daftar.forEach((n) => { %>
+            <tr>
+              <td>
+                <% if (n.tipe === 'overdue') { %>
+                  <span class="status status-overdue">Overdue</span>
+                <% } else { %>
+                  <span class="status status-tunggu">Pengingat H-2</span>
+                <% } %>
+              </td>
+              <td><%= n.book ? n.book.judul : '(buku terhapus)' %></td>
+              <td><%= n.member ? n.member.nama : '(anggota terhapus)' %></td>
+              <td><%= n.pesan %></td>
+              <td class="teks-kecil teks-lembut"><%= new Date(n.dibuatPada).toLocaleString('id-ID') %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

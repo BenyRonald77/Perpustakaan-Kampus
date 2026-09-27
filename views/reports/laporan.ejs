@@ -1,0 +1,99 @@
+<%- include('../partials/header') %>
+
+<div class="page-heading">
+  <div>
+    <h1>Laporan Peminjaman</h1>
+    <p>Seluruh peminjaman yang masih aktif, termasuk yang sudah overdue beserta denda berjalan. Denda pada baris overdue diperbarui otomatis setiap hari oleh job terjadwal.</p>
+  </div>
+</div>
+
+<% if (loadError) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'galat',
+    judul: 'Laporan gagal dimuat',
+    pesan: 'Terjadi masalah saat membaca data peminjaman: ' + loadError + '. Muat ulang halaman.',
+    aksiHref: '/laporan',
+    aksiLabel: 'Coba muat ulang',
+  } }) %>
+<% } else if (aktif.length === 0) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'kosong',
+    judul: 'Tidak ada peminjaman aktif',
+    pesan: 'Semua buku sudah dikembalikan. Peminjaman baru akan muncul di sini setelah diproses lewat halaman Peminjaman.',
+    aksiHref: '/peminjaman',
+    aksiLabel: 'Buka Halaman Peminjaman',
+  } }) %>
+<% } else { %>
+  <div class="kartu-grid kartu-grid--2">
+    <div class="kartu">
+      <p class="ringkasan-angka"><%= aktif.length %></p>
+      <p class="ringkasan-label">Total peminjaman aktif</p>
+    </div>
+    <div class="kartu">
+      <p class="ringkasan-angka ringkasan-angka--bahaya"><%= overdueCount %></p>
+      <p class="ringkasan-label">Di antaranya sudah overdue</p>
+    </div>
+  </div>
+
+  <div class="kartu">
+    <h2>Daftar peminjaman aktif</h2>
+    <div class="tabel-bungkus">
+      <table>
+        <thead>
+          <tr>
+            <th>Buku</th>
+            <th>Anggota</th>
+            <th>Tgl Pinjam</th>
+            <th>Jatuh Tempo</th>
+            <th>Status</th>
+            <th>Denda Berjalan</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% aktif.forEach((l) => { %>
+            <tr>
+              <td><%= l.book ? l.book.judul : '(buku terhapus)' %></td>
+              <td><%= l.member ? l.member.nama : '(anggota terhapus)' %></td>
+              <td><%= l.tanggalPinjam %></td>
+              <td><%= l.tanggalJatuhTempo %></td>
+              <td>
+                <% if (l.overdue) { %>
+                  <span class="status status-overdue">Overdue <%= l.hariTelat %> hari</span>
+                <% } else { %>
+                  <span class="status status-aktif">Aktif</span>
+                <% } %>
+              </td>
+              <td><%= l.dendaBerjalan > 0 ? 'Rp' + l.dendaBerjalan.toLocaleString('id-ID') : '-' %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <% if (totalDendaPerAnggota.length > 0) { %>
+    <div class="kartu">
+      <h2>Total denda berjalan per anggota</h2>
+      <div class="tabel-bungkus">
+        <table>
+          <thead>
+            <tr>
+              <th>Anggota</th>
+              <th>Total Denda Berjalan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% totalDendaPerAnggota.forEach((a) => { %>
+              <tr>
+                <td><%= a.nama %></td>
+                <td>Rp<%= a.total.toLocaleString('id-ID') %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% } %>
+<% } %>
+
+<%- include('../partials/footer') %>

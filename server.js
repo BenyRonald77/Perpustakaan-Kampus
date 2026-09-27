@@ -6,6 +6,7 @@ const dashboardRoutes = require('./routes/dashboard');
 const bookRoutes = require('./routes/books');
 const memberRoutes = require('./routes/members');
 const loanRoutes = require('./routes/loans');
+const reportRoutes = require('./routes/reports');
 const { runDailyJob } = require('./lib/cron');
 
 const app = express();
@@ -22,6 +23,7 @@ app.use('/', dashboardRoutes);
 app.use('/buku', bookRoutes);
 app.use('/anggota', memberRoutes);
 app.use('/', loanRoutes);
+app.use('/', reportRoutes);
 
 // Pemicu manual job harian (denda berjalan + notifikasi + penghangusan antrean),
 // dipakai untuk pengujian tanpa menunggu jadwal cron. Logikanya identik dengan
