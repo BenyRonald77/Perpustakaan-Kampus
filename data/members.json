@@ -1,0 +1,32 @@
+[
+  {
+    "id": "6e114d1e-e67e-45f3-9064-90a9fa7281a2",
+    "nama": "Ayu Lestari",
+    "nim": "MHS-1001",
+    "createdAt": "2026-09-27T04:53:02.288Z"
+  },
+  {
+    "id": "05aeddbe-8937-469a-91c4-d922ca6ddd28",
+    "nama": "Bagus Prakoso",
+    "nim": "MHS-1002",
+    "createdAt": "2026-09-27T04:53:02.288Z"
+  },
+  {
+    "id": "34e98ded-7d40-4593-9810-be566f757a24",
+    "nama": "Citra Ramadhani",
+    "nim": "MHS-1003",
+    "createdAt": "2026-09-27T04:53:02.288Z"
+  },
+  {
+    "id": "54197625-f0c8-4fe4-8020-96541bd44124",
+    "nama": "Dimas Saputra",
+    "nim": "MHS-1004",
+    "createdAt": "2026-09-27T04:53:02.288Z"
+  },
+  {
+    "id": "2a3ed8cc-87b5-4829-9cf2-063a64c4f5a7",
+    "nama": "Eka Wulandari",
+    "nim": "MHS-1005",
+    "createdAt": "2026-09-27T04:53:02.288Z"
+  }
+]

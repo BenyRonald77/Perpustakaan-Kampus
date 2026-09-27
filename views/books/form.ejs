@@ -1,0 +1,53 @@
+<%- include('../partials/header') %>
+
+<% if (notFound) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'galat',
+    judul: 'Buku tidak ditemukan',
+    pesan: 'Buku yang ingin diubah mungkin sudah dihapus.',
+    aksiHref: '/buku',
+    aksiLabel: 'Kembali ke daftar buku',
+  } }) %>
+<% } else { %>
+  <div class="page-heading">
+    <div>
+      <h1><%= mode === 'baru' ? 'Tambah Buku Baru' : 'Ubah Buku' %></h1>
+      <p>Barcode buku dipakai sebagai kode unik saat pemindaian peminjaman/pengembalian.</p>
+    </div>
+  </div>
+
+  <% if (errors.length > 0) { %>
+    <div class="notice notice-galat" role="alert">
+      <strong>Data belum bisa disimpan:</strong>
+      <ul class="mb-0">
+        <% errors.forEach((e) => { %><li><%= e %></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <div class="kartu">
+    <form method="POST" action="<%= mode === 'baru' ? '/buku' : '/buku/' + book.id %>">
+      <div class="form-field">
+        <label for="judul">Judul Buku</label>
+        <input type="text" id="judul" name="judul" value="<%= book.judul %>" required>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="barcode">Barcode Buku</label>
+          <input class="input-barcode" type="text" id="barcode" name="barcode" value="<%= book.barcode %>" required data-autofocus>
+          <span class="form-hint">Pindai dengan scanner USB atau ketik kode unik secara manual.</span>
+        </div>
+        <div class="form-field">
+          <label for="totalEksemplar">Total Eksemplar</label>
+          <input type="number" id="totalEksemplar" name="totalEksemplar" min="1" step="1" value="<%= book.totalEksemplar %>" required>
+        </div>
+      </div>
+      <div class="pil-baris">
+        <button class="btn btn-utama" type="submit">Simpan Buku</button>
+        <a class="btn btn-sekunder" href="/buku">Batal</a>
+      </div>
+    </form>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

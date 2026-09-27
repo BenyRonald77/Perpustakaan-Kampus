@@ -1,0 +1,506 @@
+/*
+  Perpustakaan Kampus - stylesheet utama.
+  Palet, tipografi, dan dial liveliness mengikuti DESIGN.md (ENERGY 2 / RHYTHM 2 / MOTION 1).
+  Tema tetap terang (tidak ada toggle gelap): motif identitas aplikasi ini adalah
+  "kertas katalog perpustakaan", jadi latar kertas krem hangat adalah bagian dari
+  identitas, bukan sekadar pilihan tema teknis (lihat DESIGN.md dan README).
+*/
+
+:root {
+  --tinta: #1f2a37;
+  --tinta-lembut: #46536a;
+  --kertas: #f6f1e7;
+  --permukaan: #ffffff;
+  --garis: #dcd3c0;
+  --aksen: #b5651d;
+  --aksen-lembut: #f1e0cf;
+  --status-bahaya: #b3261e;
+  --status-bahaya-lembut: #f6e3e1;
+  --status-baik: #3f6c4c;
+  --status-baik-lembut: #e4ede6;
+  --status-tunggu: #8a6d1f;
+  --status-tunggu-lembut: #f3ecd6;
+
+  --font-judul: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-teks: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-kode: 'JetBrains Mono', 'Courier New', monospace;
+
+  --spasi-1: 8px;
+  --spasi-2: 16px;
+  --spasi-3: 24px;
+  --spasi-4: 32px;
+
+  --radius-kartu: 6px;
+  --radius-kode: 2px;
+  --radius-kontrol: 4px;
+
+  --transisi: 150ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--kertas);
+  color: var(--tinta);
+  font-family: var(--font-teks);
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-judul);
+  color: var(--tinta);
+  line-height: 1.25;
+  margin: 0 0 var(--spasi-2) 0;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.4rem; }
+h3 { font-size: 1.15rem; }
+
+p { margin: 0 0 var(--spasi-2) 0; }
+
+a {
+  color: var(--aksen);
+  text-decoration-thickness: 1.5px;
+}
+
+a:hover { text-decoration-thickness: 2px; }
+
+code, .kode {
+  font-family: var(--font-kode);
+}
+
+/* Fokus terlihat jelas untuk seluruh elemen interaktif (R-32). Tidak pernah
+   dihapus tanpa pengganti. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--aksen);
+  outline-offset: 2px;
+}
+
+/* ---------- Kerangka halaman ---------- */
+
+.app-header {
+  background: var(--tinta);
+  color: var(--kertas);
+  padding: var(--spasi-2) var(--spasi-2);
+}
+
+.app-header__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spasi-2);
+  flex-wrap: wrap;
+}
+
+.app-header__brand {
+  font-family: var(--font-judul);
+  font-size: 1.25rem;
+  color: var(--kertas);
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.app-header__brand small {
+  font-family: var(--font-teks);
+  font-size: 0.7rem;
+  color: var(--garis);
+  font-weight: 400;
+}
+
+.app-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.app-nav a {
+  color: var(--kertas);
+  text-decoration: none;
+  padding: 10px 12px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-kontrol);
+  font-size: 0.92rem;
+  transition: background var(--transisi);
+}
+
+.app-nav a:hover,
+.app-nav a:focus-visible {
+  background: rgba(246, 241, 231, 0.14);
+}
+
+.app-nav a[aria-current="page"] {
+  background: var(--aksen);
+  color: #fff;
+  font-weight: 600;
+}
+
+.nav-toggle {
+  display: none;
+}
+
+.app-main {
+  flex: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--spasi-3) var(--spasi-2) var(--spasi-4);
+  width: 100%;
+}
+
+.app-footer {
+  text-align: center;
+  padding: var(--spasi-2);
+  font-size: 0.85rem;
+  color: var(--tinta-lembut);
+  border-top: 1px solid var(--garis);
+}
+
+.page-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spasi-2);
+  margin-bottom: var(--spasi-3);
+}
+
+.page-heading p {
+  margin: 4px 0 0 0;
+  color: var(--tinta-lembut);
+  max-width: 60ch;
+}
+
+/* ---------- Kartu (motif identitas katalog) ---------- */
+
+.kartu {
+  background: var(--permukaan);
+  border: 1px solid var(--garis);
+  border-top: 3px solid var(--aksen);
+  border-radius: var(--radius-kartu);
+  padding: var(--spasi-3);
+  margin-bottom: var(--spasi-3);
+}
+
+.kartu-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spasi-2);
+}
+
+@media (min-width: 640px) {
+  .kartu-grid--2 { grid-template-columns: repeat(2, 1fr); }
+  .kartu-grid--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+.ringkasan-angka {
+  font-family: var(--font-judul);
+  font-size: 2rem;
+  margin: 0;
+}
+
+.ringkasan-label {
+  color: var(--tinta-lembut);
+  font-size: 0.85rem;
+  margin: 4px 0 0 0;
+}
+
+.ringkasan-angka--bahaya { color: var(--status-bahaya); }
+.ringkasan-angka--aksen { color: var(--aksen); }
+
+/* ---------- Form ---------- */
+
+.form-field {
+  margin-bottom: var(--spasi-2);
+}
+
+.form-field label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-hint {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--tinta-lembut);
+  margin-top: 4px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--garis);
+  border-radius: var(--radius-kontrol);
+  background: var(--permukaan);
+  color: var(--tinta);
+  font-size: 1rem;
+  font-family: var(--font-teks);
+}
+
+input.input-barcode {
+  font-family: var(--font-kode);
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--aksen);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--spasi-2);
+  flex-wrap: wrap;
+}
+
+.form-row > * { flex: 1 1 220px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: var(--radius-kontrol);
+  border: 1px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-teks);
+  transition: background var(--transisi), border-color var(--transisi);
+  text-decoration: none;
+}
+
+.btn-utama {
+  background: var(--aksen);
+  color: #fff;
+}
+
+.btn-utama:hover, .btn-utama:focus-visible {
+  background: #9c5518;
+}
+
+.btn-sekunder {
+  background: transparent;
+  color: var(--tinta);
+  border-color: var(--garis);
+}
+
+.btn-sekunder:hover, .btn-sekunder:focus-visible {
+  border-color: var(--tinta);
+}
+
+.btn-bahaya {
+  background: transparent;
+  color: var(--status-bahaya);
+  border-color: var(--status-bahaya-lembut);
+}
+
+.btn-bahaya:hover, .btn-bahaya:focus-visible {
+  background: var(--status-bahaya-lembut);
+}
+
+.btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ---------- Tabel ---------- */
+
+.tabel-bungkus {
+  overflow-x: auto;
+  border: 1px solid var(--garis);
+  border-radius: var(--radius-kartu);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+  background: var(--permukaan);
+}
+
+th, td {
+  text-align: left;
+  padding: 12px var(--spasi-2);
+  border-bottom: 1px solid var(--garis);
+  font-size: 0.94rem;
+}
+
+th {
+  font-family: var(--font-judul);
+  font-weight: 600;
+  background: var(--aksen-lembut);
+  color: var(--tinta);
+}
+
+tbody tr:hover {
+  background: rgba(181, 101, 29, 0.05);
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.kode-badge {
+  display: inline-block;
+  font-family: var(--font-kode);
+  font-size: 0.85rem;
+  background: var(--kertas);
+  border: 1px solid var(--garis);
+  border-radius: var(--radius-kode);
+  padding: 2px 8px;
+}
+
+/* ---------- Lencana status ---------- */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-aktif { background: var(--status-baik-lembut); color: var(--status-baik); }
+.status-overdue { background: var(--status-bahaya-lembut); color: var(--status-bahaya); }
+.status-tunggu { background: var(--status-tunggu-lembut); color: var(--status-tunggu); }
+.status-siap { background: var(--aksen-lembut); color: var(--aksen); }
+.status-selesai { background: #eee; color: var(--tinta-lembut); }
+
+/* ---------- Notifikasi umpan balik ---------- */
+
+.notice {
+  border-radius: var(--radius-kartu);
+  padding: var(--spasi-2);
+  margin-bottom: var(--spasi-3);
+  border: 1px solid transparent;
+}
+
+.notice-sukses {
+  background: var(--status-baik-lembut);
+  border-color: var(--status-baik);
+  color: #234a2f;
+}
+
+.notice-galat {
+  background: var(--status-bahaya-lembut);
+  border-color: var(--status-bahaya);
+  color: #7a1b16;
+}
+
+.notice-info {
+  background: var(--aksen-lembut);
+  border-color: var(--aksen);
+  color: #6b3c10;
+}
+
+/* ---------- Keadaan kosong / memuat / galat ---------- */
+
+.state-block {
+  text-align: center;
+  padding: var(--spasi-4) var(--spasi-2);
+  color: var(--tinta-lembut);
+  border: 1px dashed var(--garis);
+  border-radius: var(--radius-kartu);
+  background: var(--permukaan);
+}
+
+.state-block h3 {
+  color: var(--tinta);
+  margin-bottom: 4px;
+}
+
+.state-block--error {
+  border-color: var(--status-bahaya);
+  background: var(--status-bahaya-lembut);
+}
+
+.state-block--error h3 { color: var(--status-bahaya); }
+
+.spinner {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--garis);
+  border-top-color: var(--aksen);
+  border-radius: 50%;
+  animation: girar 700ms linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation-duration: 1400ms; }
+}
+
+@keyframes girar {
+  to { transform: rotate(360deg); }
+}
+
+/* ---------- Utilitas ---------- */
+
+.pil-baris {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.teks-lembut { color: var(--tinta-lembut); }
+.teks-kecil { font-size: 0.85rem; }
+.mb-0 { margin-bottom: 0; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--aksen);
+  color: #fff;
+  padding: 10px 16px;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+/* ---------- Responsif mobile-first (R-03) ---------- */
+
+@media (max-width: 719px) {
+  .app-header__inner { flex-direction: column; align-items: stretch; }
+  .app-nav { justify-content: flex-start; }
+  .page-heading { flex-direction: column; }
+}
+
+@media (min-width: 720px) {
+  .app-main { padding-left: var(--spasi-4); padding-right: var(--spasi-4); }
+}

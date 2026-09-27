@@ -1,0 +1,19 @@
+{
+  "name": "perpustakaan-kampus",
+  "version": "1.0.0",
+  "description": "Sistem sirkulasi perpustakaan kampus: master buku/anggota, peminjaman via barcode, antrean reservasi, denda otomatis, dan pengingat jatuh tempo.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node scripts/seed.js"
+  },
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "node-cron": "^3.0.3"
+  }
+}

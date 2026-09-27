@@ -1,0 +1,59 @@
+<%- include('../partials/header') %>
+
+<div class="page-heading">
+  <div>
+    <h1>Anggota</h1>
+    <p>Daftar anggota beserta NIM yang berfungsi sekaligus sebagai barcode kartu anggota.</p>
+  </div>
+  <a class="btn btn-utama" href="/anggota/baru">Tambah Anggota Baru</a>
+</div>
+
+<%- include('../partials/notice') %>
+
+<% if (loadError) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'galat',
+    judul: 'Data anggota gagal dimuat',
+    pesan: 'Terjadi masalah saat membaca data/members.json: ' + loadError + '. Periksa berkas data lalu muat ulang halaman.',
+    aksiHref: '/anggota',
+    aksiLabel: 'Coba muat ulang',
+  } }) %>
+<% } else if (members.length === 0) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'kosong',
+    judul: 'Belum ada anggota terdaftar',
+    pesan: 'Tambahkan anggota pertama supaya bisa langsung meminjam buku lewat pemindaian barcode.',
+    aksiHref: '/anggota/baru',
+    aksiLabel: 'Tambah Anggota Baru',
+  } }) %>
+<% } else { %>
+  <div class="tabel-bungkus">
+    <table>
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>NIM / Barcode Anggota</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% members.forEach((member) => { %>
+          <tr>
+            <td><%= member.nama %></td>
+            <td><span class="kode-badge"><%= member.nim %></span></td>
+            <td>
+              <div class="pil-baris">
+                <a class="btn btn-sekunder" href="/anggota/<%= member.id %>/edit">Ubah</a>
+                <form method="POST" action="/anggota/<%= member.id %>/hapus" onsubmit="return confirm('Hapus anggota &quot;<%= member.nama %>&quot;?');">
+                  <button class="btn btn-bahaya" type="submit">Hapus</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

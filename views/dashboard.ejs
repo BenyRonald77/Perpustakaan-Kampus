@@ -1,0 +1,62 @@
+<%- include('partials/header') %>
+
+<div class="page-heading">
+  <div>
+    <h1>Dasbor</h1>
+    <p>Ringkasan kondisi sirkulasi hari ini.</p>
+  </div>
+</div>
+
+<% if (loadError) { %>
+  <%- include('partials/state', { state: {
+    kind: 'galat',
+    judul: 'Ringkasan gagal dimuat',
+    pesan: 'Terjadi masalah saat membaca data: ' + loadError + '. Muat ulang halaman, atau periksa berkas di folder data/.',
+    aksiHref: '/',
+    aksiLabel: 'Coba muat ulang',
+  } }) %>
+<% } else { %>
+  <div class="kartu-grid kartu-grid--4">
+    <div class="kartu">
+      <p class="ringkasan-angka"><%= ringkasan.peminjamanAktif %></p>
+      <p class="ringkasan-label">Peminjaman aktif</p>
+    </div>
+    <div class="kartu">
+      <p class="ringkasan-angka ringkasan-angka--bahaya"><%= ringkasan.overdue %></p>
+      <p class="ringkasan-label">Peminjaman overdue</p>
+    </div>
+    <div class="kartu">
+      <p class="ringkasan-angka ringkasan-angka--aksen"><%= ringkasan.antreanMenunggu %></p>
+      <p class="ringkasan-label">Antrean menunggu</p>
+    </div>
+    <div class="kartu">
+      <p class="ringkasan-angka ringkasan-angka--bahaya">Rp<%= ringkasan.totalDendaBerjalan.toLocaleString('id-ID') %></p>
+      <p class="ringkasan-label">Total denda berjalan (belum lunas)</p>
+    </div>
+  </div>
+
+  <div class="kartu-grid kartu-grid--2">
+    <div class="kartu">
+      <h2>Koleksi</h2>
+      <p class="teks-lembut"><%= ringkasan.totalBuku %> judul buku terdaftar.</p>
+      <a class="btn btn-sekunder" href="/buku">Kelola Buku</a>
+    </div>
+    <div class="kartu">
+      <h2>Anggota</h2>
+      <p class="teks-lembut"><%= ringkasan.totalAnggota %> anggota terdaftar.</p>
+      <a class="btn btn-sekunder" href="/anggota">Kelola Anggota</a>
+    </div>
+  </div>
+
+  <% if (belumAdaData) { %>
+    <%- include('partials/state', { state: {
+      kind: 'kosong',
+      judul: 'Belum ada data buku maupun anggota',
+      pesan: 'Mulai dengan menambahkan judul buku dan anggota, supaya peminjaman lewat pemindaian barcode bisa langsung dipakai.',
+      aksiHref: '/buku/baru',
+      aksiLabel: 'Tambah Buku Pertama',
+    } }) %>
+  <% } %>
+<% } %>
+
+<%- include('partials/footer') %>

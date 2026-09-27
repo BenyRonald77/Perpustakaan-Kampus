@@ -1,0 +1,5 @@
+<% if (typeof notice !== 'undefined' && notice) { %>
+  <div class="notice notice-<%= notice.kind %>" role="<%= notice.kind === 'galat' ? 'alert' : 'status' %>">
+    <%= notice.text %>
+  </div>
+<% } %>

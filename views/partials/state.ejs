@@ -1,0 +1,12 @@
+<%
+// Partial keadaan kosong/galat yang bisa dipakai ulang di semua halaman data.
+// Dipanggil dengan: include('partials/state', { state: { kind: 'kosong'|'galat', judul, pesan, aksiHref, aksiLabel } })
+const kelas = state.kind === 'galat' ? 'state-block state-block--error' : 'state-block';
+%>
+<div class="<%= kelas %>" role="<%= state.kind === 'galat' ? 'alert' : 'status' %>">
+  <h3><%= state.judul %></h3>
+  <p><%= state.pesan %></p>
+  <% if (state.aksiHref) { %>
+    <a class="btn btn-utama" href="<%= state.aksiHref %>"><%= state.aksiLabel %></a>
+  <% } %>
+</div>

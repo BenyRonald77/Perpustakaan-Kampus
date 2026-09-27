@@ -1,0 +1,69 @@
+<%- include('../partials/header') %>
+
+<div class="page-heading">
+  <div>
+    <h1>Buku</h1>
+    <p>Daftar judul beserta barcode dan eksemplar tersedia. Eksemplar tersedia dihitung otomatis dari peminjaman dan antrean yang sedang berjalan, bukan input manual.</p>
+  </div>
+  <a class="btn btn-utama" href="/buku/baru">Tambah Buku Baru</a>
+</div>
+
+<%- include('../partials/notice') %>
+
+<% if (loadError) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'galat',
+    judul: 'Data buku gagal dimuat',
+    pesan: 'Terjadi masalah saat membaca data/books.json: ' + loadError + '. Periksa berkas data lalu muat ulang halaman.',
+    aksiHref: '/buku',
+    aksiLabel: 'Coba muat ulang',
+  } }) %>
+<% } else if (books.length === 0) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'kosong',
+    judul: 'Belum ada buku terdaftar',
+    pesan: 'Tambahkan judul pertama untuk mulai mengelola koleksi perpustakaan.',
+    aksiHref: '/buku/baru',
+    aksiLabel: 'Tambah Buku Baru',
+  } }) %>
+<% } else { %>
+  <div class="tabel-bungkus">
+    <table>
+      <thead>
+        <tr>
+          <th>Judul</th>
+          <th>Barcode</th>
+          <th>Total Eksemplar</th>
+          <th>Tersedia</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% books.forEach((book) => { %>
+          <tr>
+            <td><%= book.judul %></td>
+            <td><span class="kode-badge"><%= book.barcode %></span></td>
+            <td><%= book.totalEksemplar %></td>
+            <td>
+              <% if (book.eksemplarTersedia > 0) { %>
+                <span class="status status-aktif"><%= book.eksemplarTersedia %> tersedia</span>
+              <% } else { %>
+                <span class="status status-tunggu">Habis</span>
+              <% } %>
+            </td>
+            <td>
+              <div class="pil-baris">
+                <a class="btn btn-sekunder" href="/buku/<%= book.id %>/edit">Ubah</a>
+                <form method="POST" action="/buku/<%= book.id %>/hapus" onsubmit="return confirm('Hapus buku &quot;<%= book.judul %>&quot;?');">
+                  <button class="btn btn-bahaya" type="submit">Hapus</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>

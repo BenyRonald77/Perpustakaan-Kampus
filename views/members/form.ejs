@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+
+<% if (notFound) { %>
+  <%- include('../partials/state', { state: {
+    kind: 'galat',
+    judul: 'Anggota tidak ditemukan',
+    pesan: 'Anggota yang ingin diubah mungkin sudah dihapus.',
+    aksiHref: '/anggota',
+    aksiLabel: 'Kembali ke daftar anggota',
+  } }) %>
+<% } else { %>
+  <div class="page-heading">
+    <div>
+      <h1><%= mode === 'baru' ? 'Tambah Anggota Baru' : 'Ubah Anggota' %></h1>
+      <p>NIM anggota dipakai sebagai barcode kartu anggota saat pemindaian.</p>
+    </div>
+  </div>
+
+  <% if (errors.length > 0) { %>
+    <div class="notice notice-galat" role="alert">
+      <strong>Data belum bisa disimpan:</strong>
+      <ul class="mb-0">
+        <% errors.forEach((e) => { %><li><%= e %></li><% }) %>
+      </ul>
+    </div>
+  <% } %>
+
+  <div class="kartu">
+    <form method="POST" action="<%= mode === 'baru' ? '/anggota' : '/anggota/' + member.id %>">
+      <div class="form-field">
+        <label for="nama">Nama Anggota</label>
+        <input type="text" id="nama" name="nama" value="<%= member.nama %>" required data-autofocus>
+      </div>
+      <div class="form-field">
+        <label for="nim">NIM / Barcode Anggota</label>
+        <input class="input-barcode" type="text" id="nim" name="nim" value="<%= member.nim %>" required>
+        <span class="form-hint">Pindai kartu anggota dengan scanner USB atau ketik NIM secara manual.</span>
+      </div>
+      <div class="pil-baris">
+        <button class="btn btn-utama" type="submit">Simpan Anggota</button>
+        <a class="btn btn-sekunder" href="/anggota">Batal</a>
+      </div>
+    </form>
+  </div>
+<% } %>
+
+<%- include('../partials/footer') %>
